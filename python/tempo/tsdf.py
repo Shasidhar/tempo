@@ -67,8 +67,8 @@ class TSDF:
         # this if clause seems unneeded. Perhaps we should check for non-valid
         # Timestamp string matching then do some pattern matching to extract
         # the time stamp.
-        if df.schema[ts_col].dataType == "StringType":  # pragma: no cover
-            sample_ts = df.limit(1).collect()[0][0]
+        if df.schema[ts_col].dataType.typeName() == "StringType":  # pragma: no cover
+            sample_ts = df.limit(1).collect()[0][ts_col]
             self.__validate_ts_string(sample_ts)
             self.df = self.__add_double_ts().withColumnRenamed("double_ts", self.ts_col)
 
